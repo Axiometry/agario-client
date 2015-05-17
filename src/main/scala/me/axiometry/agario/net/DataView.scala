@@ -1,5 +1,7 @@
 package me.axiometry.agario.net
 
+import akka.util.ByteString
+
 case class DataView(array: Array[Byte], offset: Int, length: Int)(implicit val byteOrder: ByteOrder = ByteOrder.BigEndian) {
   import ByteOrder._
 
@@ -106,6 +108,8 @@ case class DataView(array: Array[Byte], offset: Int, length: Int)(implicit val b
     java.lang.Double.longBitsToDouble(getUint32(off))
   def setFloat64(off: Int, value: Double)(implicit byteOrder: ByteOrder = byteOrder): Unit =
     setUint32(off, java.lang.Double.doubleToRawLongBits(value))
+
+  def toByteString() = ByteString.fromArray(array, offset, length)
 }
 object DataView {
   def apply(length: Int): DataView = DataView(Array.ofDim(length), 0, length)
