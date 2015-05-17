@@ -46,8 +46,6 @@ object Agario extends Logging {
       case _ => None
     }
 
-    debug(s"Page: $page")
-
     page match {
       case Some(page) =>
         (page split '\n' toList) flatMap {
